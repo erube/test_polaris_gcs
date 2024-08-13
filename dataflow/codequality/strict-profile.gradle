@@ -1,0 +1,24 @@
+def projectRoot = project.parent ? project.parent.projectDir : project.projectDir
+
+// Checkstyle
+apply plugin: 'checkstyle'
+def checkStyleProps = ['baseDir': "${projectRoot}"]
+checkstyle {
+    configFile = new File(rootDir, "codequality/checkstyle.xml")
+    configProperties = checkStyleProps
+    toolVersion = "8.38"
+}
+
+// Spotbugs
+apply plugin: 'com.github.spotbugs'
+spotbugs {
+    excludeFilter = file("${projectRoot}/codequality/findbugs-exclude.xml")
+}
+
+// PMD
+apply plugin: 'pmd'
+pmd {
+    toolVersion = '6.20.0'
+    rulesMinimumPriority = 2
+    consoleOutput = false
+}

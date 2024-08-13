@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<FindBugsFilter>
+    <Match>
+        <Bug pattern="UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS" />
+    </Match>
+    <Match>
+        <Class name="com.abtasty.universalcollect.mario.pipeline.parse.ValidateHitTest"/>
+    </Match>
+    <Match>
+        <Class name="com.abtasty.universalcollect.mario.pipeline.parse.MapHitTest"/>
+    </Match>
+    <Match>
+        <Source name="~.*ClientStateAPI.java" />
+        <Bug pattern="THROWS_METHOD_THROWS_CLAUSE_BASIC_EXCEPTION" />
+    </Match>
+    <Match>
+        <Source name="~.*RealtimeStateAPI.java" />
+        <Bug pattern="THROWS_METHOD_THROWS_CLAUSE_BASIC_EXCEPTION" />
+    </Match>
+    <Match>
+        <Source name="~.*DADeviceAPI.java" />
+        <Bug pattern="THROWS_METHOD_THROWS_CLAUSE_BASIC_EXCEPTION" />
+    </Match>
+    <Match>
+        <Source name="~.*GeolocationAPI.java" />
+        <Bug pattern="THROWS_METHOD_THROWS_CLAUSE_BASIC_EXCEPTION" />
+    </Match>
+    <Match>
+        <Source name="~.*TrafficSourceAPIEmbedded.java" />
+        <Bug pattern="THROWS_METHOD_THROWS_CLAUSE_BASIC_EXCEPTION" />
+    </Match>
+    <Match>
+        <Source name="~.*TrafficSourceAPIGrpc.java" />
+        <Bug pattern="THROWS_METHOD_THROWS_CLAUSE_BASIC_EXCEPTION" />
+    </Match>
+    <Match>
+        <Source name="~.*AnonymousIdsAPI.java" />
+        <Bug pattern="THROWS_METHOD_THROWS_CLAUSE_BASIC_EXCEPTION" />
+    </Match>
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP" />
+    </Match>
+    <Match>
+        <Bug pattern="EI_EXPOSE_REP2" />
+    </Match>
+</FindBugsFilter>

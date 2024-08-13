@@ -1,0 +1,355 @@
+{
+	"info": {
+		"_postman_id": "5c31b3db-2fcf-4bdf-8b88-bd8be0e37262",
+		"name": "Polaris",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29677304"
+	},
+	"item": [
+		{
+			"name": "1_Get token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "PRINCIPAL_ROLE:ALL",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "0c8e900c80dbb75e",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "afd1b60cd6c7720ad557154148933e35",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{scheme}}://{{host}}:{{port}}/api/catalog/v1/oauth/tokens",
+					"protocol": "{{scheme}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"catalog",
+						"v1",
+						"oauth",
+						"tokens"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2_Create Catalog",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"polariscatalog\", \n    \"type\": \"INTERNAL\", \n    \"readOnly\": false,\n    \"properties\": {\"default-base-location\": \"gs://tmp-erube-iceberg/polaris/\"},\n    \"storageConfigInfo\": {\"storageType\": \"GCS\", \"allowedLocations\": [\"gs://tmp-erube-iceberg/polaris/\"]} \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{scheme}}://{{host}}:{{port}}api/management/v1/catalogs",
+					"protocol": "{{scheme}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}api",
+					"path": [
+						"management",
+						"v1",
+						"catalogs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3_Create Principal",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\": \"polarisuser\", \"type\": \"user\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{scheme}}://{{host}}:{{port}}/api/management/v1/principals",
+					"protocol": "{{scheme}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"management",
+						"v1",
+						"principals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4_Create catalog role",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"principalRole\": {\"name\": \"polarisuserrole\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{scheme}}://{{host}}:{{port}}/api/management/v1/principal-roles",
+					"protocol": "{{scheme}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"management",
+						"v1",
+						"principal-roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5_Assign Role to Principal",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"principalRole\": {\"name\": \"polarisuserrole\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{scheme}}://{{host}}:{{port}}/api/management/v1/principals/polarisuser/principal-roles",
+					"protocol": "{{scheme}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"management",
+						"v1",
+						"principals",
+						"polarisuser",
+						"principal-roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6_create_catalog_role",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"catalogRole\": {\"name\": \"polariscatalogrole\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{scheme}}://{{host}}:{{port}}/api/management/v1/catalogs/polariscatalog/catalog-roles",
+					"protocol": "{{scheme}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"management",
+						"v1",
+						"catalogs",
+						"polariscatalog",
+						"catalog-roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7_Assign_Catalog_role_to_principal_role",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"catalogRole\": {\"name\": \"polariscatalogrole\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{scheme}}://{{host}}:{{port}}/api/management/v1/principal-roles/polarisuserrole/catalog-roles/polariscatalog",
+					"protocol": "{{scheme}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"management",
+						"v1",
+						"principal-roles",
+						"polarisuserrole",
+						"catalog-roles",
+						"polariscatalog"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8_grant_privilege_to_catalog_role",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"grant\": {\"type\": \"catalog\", \"privilege\": \"CATALOG_MANAGE_CONTENT\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{scheme}}://{{host}}:{{port}}/api/management/v1/catalogs/polariscatalog/catalog-roles/polariscatalogrole/grants",
+					"protocol": "{{scheme}}",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"management",
+						"v1",
+						"catalogs",
+						"polariscatalog",
+						"catalog-roles",
+						"polariscatalogrole",
+						"grants"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
